@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api"; // backend URL
+const API_URL = "https://cart-backend-rxka.onrender.com/api"; // backend URL
 
 // -------------------- SIGNUP --------------------
 const signupForm = document.getElementById("signupForm");
