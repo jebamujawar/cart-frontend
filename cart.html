@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | Coffee Store</title>
+  <link rel="stylesheet" href="CSS/bootstrap.css">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="container-fluid bg-dark">
+  <div class="row align-items-center p-3">
+    <div class="col-1">
+      <img src="Images/Logo.png" class="img-fluid">
+    </div>
+    <div class="col-1">
+      <h2 id="h22">Coffee</h2>
+    </div>
+    <div class="col-8">
+      <ul class="nav justify-content-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item ps-4"><a class="nav-link text-warning" href="cart.html">Cart 🛒</a></li>
+      </ul>
+    </div>
+    <div class="col-2 text-center">
+      <a class="nav-link" href="login.html">Login</a>
+    </div>
+  </div>
+</div>
+
+<!-- CART CONTENT -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Your Cart</h2>
+  <div id="cartList"></div>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function displayCart() {
+  const container = document.getElementById("cartList");
+  container.innerHTML = "";
+  let total = 0;
+
+  if(cart.length === 0) {
+    container.innerHTML = "<p>Your cart is empty.</p>";
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    container.innerHTML += `
+      <div>
+        <span>${item.name} - ₹${item.price}</span>
+        <button class="btn btn-danger btn-sm" onclick="removeItem(${index})">Remove</button>
+      </div>
+    `;
+  });
+
+  container.innerHTML += `<h4>Total: ₹${total}</h4>
+    <button class="btn btn-success mt-3" onclick="checkout()">Checkout</button>
+  `;
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  displayCart();
+}
+
+function checkout() {
+  alert("Thank you for your purchase!");
+  cart = [];
+  localStorage.setItem("cart", JSON.stringify(cart));
+  displayCart();
+}
+
+displayCart();
+</script>
+
+</body>
+</html>

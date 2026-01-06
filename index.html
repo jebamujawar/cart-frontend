@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee E-Commerce</title>
+
+  <link rel="stylesheet" href="CSS/bootstrap.css">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="container-fluid bg-dark">
+  <div class="row align-items-center p-3">
+    <div class="col-1">
+      <img src="Images/Logo.png" class="img-fluid">
+    </div>
+    <div class="col-1">
+      <h2 id="h22">Coffee</h2>
+    </div>
+    <div class="col-8">
+      <ul class="nav justify-content-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item ps-4"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item ps-4"><a class="nav-link text-warning" href="cart.html">Cart 🛒</a></li>
+      </ul>
+    </div>
+    <div class="col-2 text-center">
+      <a class="nav-link" href="login.html">Login</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<div class="container mt-5" id="mainbody">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <h2>More than coffee — it’s a mood</h2>
+      <h3>Brewed with love, served with a smile.</h3>
+      <p>Welcome to our coffee paradise.</p>
+    </div>
+    <div class="col-md-6">
+      <img src="IMAGES/about_coffee.png" class="img-fluid">
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT SECTION -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Our Coffee Products</h2>
+
+  <input type="text" id="search" class="form-control mb-4" placeholder="Search coffee...">
+
+  <div class="row" id="productList"></div>
+</div>
+
+<!-- FOOTER -->
+<div class="container-fluid bg-dark text-light mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Useful Links</h3>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h3>Contact</h3>
+        <p>Karad, Satara</p>
+        <p>+91 123456789</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Follow Us</h3>
+        <p>Facebook | Instagram | Twitter</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// PRODUCTS DATA
+const products = [
+  {id:1, name:"Espresso", price:150, image:"IMAGES/espresso.jpg"},
+  {id:2, name:"Cappuccino", price:200, image:"IMAGES/cappuccino.jpg"},
+  {id:3, name:"Latte", price:180, image:"IMAGES/latte.jpg"},
+  {id:4, name:"Cold Coffee", price:220, image:"IMAGES/coldcoffee.jpg"}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function displayProducts(list) {
+  const container = document.getElementById("productList");
+  container.innerHTML = "";
+
+  list.forEach(p => {
+    container.innerHTML += `
+      <div class="col-md-3">
+        <div class="product-card">
+          <img src="${p.image}" class="img-fluid">
+          <h5>${p.name}</h5>
+          <p>₹${p.price}</p>
+          <button class="btn btn-info" onclick="addToCart(${p.id})">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart!");
+}
+
+document.getElementById("search").addEventListener("keyup", function() {
+  const value = this.value.toLowerCase();
+  const filtered = products.filter(p => p.name.toLowerCase().includes(value));
+  displayProducts(filtered);
+});
+
+displayProducts(products);
+</script>
+
+</body>
+</html>
