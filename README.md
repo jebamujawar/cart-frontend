@@ -16,6 +16,9 @@ https://cart-backend-rxka.onrender.com
 🔗 **Products API**  
 https://cart-backend-rxka.onrender.com/api/products
 
+🔗 🎥 Project Walkthrough Video
+https://drive.google.com/file/d/18P2FV3l_QRoNI3pnyymT5vKAbPIwukzv/view?usp=sharing
+
 ---
 
 ##Tech Stack
